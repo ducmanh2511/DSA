@@ -1,69 +1,277 @@
-Bài toán
-- Khai báo một mảng hai chiều arr gồm n mảng rỗng, tất cả đều được đánh chỉ số bắt đầu từ 0.
-- Khai báo một số nguyên lastAnswer và khởi tạo nó bằng 0.
-Bạn cần xử lý hai loại truy vấn:
-1. Truy vấn: 1 x y
-   - Tính idx = ((x XOR lastAnswer) % n).
-   - Thêm số nguyên y vào arr[idx].
-2. Truy vấn: 2 x y
-   - Tính idx = ((x XOR lastAnswer) % n).
-   - Gán lastAnswer = arr[idx][y % size(arr[idx])].
-   - Lưu giá trị mới của lastAnswer vào một mảng answers.
-Chú ý:
-- XOR là phép toán XOR theo bit, tương ứng với toán tử ^ trong hầu hết các ngôn ngữ.
-- % là toán tử modulo.
-- Cuối cùng, size(arr[idx]) là số lượng phần tử trong arr[idx].
-Mô tả hàm
-Hoàn thiện hàm dynamicArray với các tham số sau:
-- int n: số lượng mảng rỗng cần khởi tạo trong arr.
-- int queries[q][3]: mảng hai chiều gồm các số nguyên.
-Giá trị trả về
-- int[]: kết quả của mỗi truy vấn loại 2 theo thứ tự chúng xuất hiện.
-Định dạng đầu vào
-Dòng đầu tiên chứa hai số nguyên n và q cách nhau bởi dấu cách, trong đó n là kích thước của arr cần tạo và q là số lượng truy vấn.
-Mỗi dòng trong q dòng tiếp theo chứa một truy vấn queries[i].
-Ràng buộc
-1 <= n, q <= 10^5
-0 <= x, y <= 10^9
+# HackerRank - Dynamic Array
 
-Đảm bảo rằng truy vấn loại 2 sẽ không bao giờ truy vấn một mảng rỗng hoặc một chỉ số không hợp lệ.
-Đầu vào mẫu
-STDIN    Function
------    --------
-2 5      kích thước arr[] n = 2, kích thước queries[] q = 5
-1 0 5    queries = [[1,0,5],[1,1,7],[1,0,3],[2,1,0],[2,1,1]]
+## Đề bài
+
+Khai báo một mảng hai chiều `arr` gồm `n` mảng rỗng:
+
+```text
+arr[0], arr[1], ..., arr[n - 1]
+```
+
+Khai báo một biến số nguyên `lastAnswer` và khởi tạo:
+
+```text
+lastAnswer = 0
+```
+
+Có hai loại truy vấn.
+
+---
+
+## Truy vấn loại 1
+
+```text
+1 x y
+```
+
+Tính:
+
+```text
+idx = (x XOR lastAnswer) % n
+```
+
+Sau đó thêm giá trị `y` vào cuối mảng:
+
+```text
+arr[idx]
+```
+
+---
+
+## Truy vấn loại 2
+
+```text
+2 x y
+```
+
+Tính:
+
+```text
+idx = (x XOR lastAnswer) % n
+```
+
+Sau đó gán:
+
+```text
+lastAnswer = arr[idx][y % size(arr[idx])]
+```
+
+Lưu giá trị mới của `lastAnswer` vào mảng kết quả.
+
+---
+
+## Định dạng đầu vào
+
+Dòng đầu tiên chứa hai số nguyên:
+
+```text
+n q
+```
+
+Trong đó:
+
+- `n` là số lượng mảng rỗng.
+- `q` là số lượng truy vấn.
+
+Mỗi dòng trong `q` dòng tiếp theo chứa một truy vấn có dạng:
+
+```text
+1 x y
+```
+
+hoặc:
+
+```text
+2 x y
+```
+
+---
+
+## Định dạng đầu ra
+
+Với mỗi truy vấn loại `2`, in giá trị của `lastAnswer`.
+
+Mỗi giá trị được in trên một dòng riêng.
+
+---
+
+## Ví dụ
+
+### Đầu vào mẫu
+
+```text
+2 5
+1 0 5
 1 1 7
 1 0 3
 2 1 0
 2 1 1
+```
 
-Đầu ra mẫu
+### Đầu ra mẫu
+
+```text
 7
 3
+```
 
-Giải thích
-Giá trị ban đầu:
-arr[0] = [ ]
-arr[1] = [ ]
+---
 
-Truy vấn 0: Thêm 5 vào arr[0].
+## Giải thích
+
+Trạng thái ban đầu:
+
+```text
+arr[0] = []
+arr[1] = []
+
+lastAnswer = 0
+```
+
+### Truy vấn 1
+
+```text
+1 0 5
+```
+
+Tính:
+
+```text
+idx = (0 XOR 0) % 2
+    = 0
+```
+
+Thêm `5` vào `arr[0]`.
+
+```text
 arr[0] = [5]
-arr[1] = [ ]
+arr[1] = []
+```
 
-Truy vấn 1: Thêm 7 vào arr[1].
+---
+
+### Truy vấn 2
+
+```text
+1 1 7
+```
+
+Tính:
+
+```text
+idx = (1 XOR 0) % 2
+    = 1
+```
+
+Thêm `7` vào `arr[1]`.
+
+```text
 arr[0] = [5]
 arr[1] = [7]
+```
 
-Truy vấn 2: Thêm 3 vào arr[0].
+---
+
+### Truy vấn 3
+
+```text
+1 0 3
+```
+
+Tính:
+
+```text
+idx = (0 XOR 0) % 2
+    = 0
+```
+
+Thêm `3` vào `arr[0]`.
+
+```text
 arr[0] = [5, 3]
 arr[1] = [7]
+```
 
-Truy vấn 3: Gán giá trị tại chỉ số 0 của arr[1] cho lastAnswer. Lưu 7 vào mảng kết quả.
-arr[0] = [5, 3]
+---
+
+### Truy vấn 4
+
+```text
+2 1 0
+```
+
+Tính:
+
+```text
+idx = (1 XOR 0) % 2
+    = 1
+```
+
+Mảng được chọn là:
+
+```text
 arr[1] = [7]
+```
 
-Truy vấn 4: Gán giá trị tại chỉ số 1 của arr[0] cho lastAnswer. Lưu 3 vào mảng kết quả.
+Tính:
+
+```text
+lastAnswer = arr[1][0 % 1]
+           = arr[1][0]
+           = 7
+```
+
+Kết quả:
+
+```text
+7
+```
+
+---
+
+### Truy vấn 5
+
+```text
+2 1 1
+```
+
+Lúc này:
+
+```text
+lastAnswer = 7
+```
+
+Tính:
+
+```text
+idx = (1 XOR 7) % 2
+    = 6 % 2
+    = 0
+```
+
+Mảng được chọn là:
+
+```text
 arr[0] = [5, 3]
-arr[1] = [7]
+```
 
-Trả về mảng kết quả [7, 3]. Đoạn code có sẵn sẽ in các phần tử của mảng trên các dòng riêng biệt.
+Tính:
+
+```text
+lastAnswer = arr[0][1 % 2]
+           = arr[0][1]
+           = 3
+```
+
+Kết quả:
+
+```text
+3
+```
+
+Do đó đầu ra cuối cùng là:
+
+```text
+7
+3
+```
