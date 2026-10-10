@@ -1,128 +1,112 @@
+# Dynamic Array
 
 ## Đề bài
 
-Sherlock có một tập hợp số nguyên động.
+Sherlock gần đây đã học về **mảng động** (*dynamic array*). Để kiểm tra kiến thức của Sherlock, Watson đã đặt ra một số truy vấn liên quan đến mảng.
 
-Bạn cần xử lý `Q` truy vấn.
+Các truy vấn được định nghĩa như sau:
 
-Mỗi truy vấn thuộc một trong bốn loại sau.
-
----
-
-## Truy vấn loại 1 - Thêm phần tử
-
-```text
-1 x
-```
-
-Thêm giá trị `x` vào tập hợp.
-
-Có thể biểu diễn thao tác này là:
+### K = 1 — Add(x)
 
 ```text
 Add(x)
 ```
 
+Thêm `x` vào mảng động chứa các số.
+
 ---
 
-## Truy vấn loại 2 - Xóa phần tử
-
-```text
-2 x
-```
-
-Xóa giá trị `x` khỏi tập hợp.
-
-Có thể biểu diễn thao tác này là:
+### K = 2 — Delete(x)
 
 ```text
 Delete(x)
 ```
 
----
-
-## Truy vấn loại 3 - Tìm phần tử nhỏ thứ x
-
-```text
-3 x
-```
-
-Tìm phần tử nhỏ thứ `x` trong tập hợp hiện tại.
-
-Vị trí được tính bắt đầu từ `1`.
-
-Ví dụ:
-
-```text
-arr = [2, 4, 6, 8]
-```
-
-Ta có:
-
-```text
-smallest(1) = 2
-smallest(2) = 4
-smallest(3) = 6
-smallest(4) = 8
-```
+Xóa một lần xuất hiện của `x` khỏi mảng.
 
 ---
 
-## Truy vấn loại 4 - Tìm GCD
+### K = 3 — smallest(x)
 
 ```text
-4 L R
+smallest(x)
 ```
 
-Xét tất cả các giá trị hiện đang có trong tập hợp và nằm trong đoạn:
-
-```text
-[L, R]
-```
-
-Tìm **ước chung lớn nhất (GCD)** của các giá trị đó.
+In ra phần tử nhỏ thứ `x` trong mảng, với vị trí được đánh số bắt đầu từ `1`.
 
 ---
 
-## Giới hạn
+### K = 4 — gcd(L, R)
 
 ```text
-Q <= 10^6
-x <= 10^6
-L <= 10^6
-R <= 10^6
+gcd(L, R)
 ```
+
+In ra **ước chung lớn nhất** của tất cả các số đã xuất hiện trong khoảng từ `L` đến `R`, bao gồm cả `L` và `R`, trong mảng.
 
 ---
 
-## Định dạng đầu vào
+Trong thao tác `Delete(x)`, phần tử `x` luôn tồn tại trong mảng.
 
-Dòng đầu tiên chứa số lượng truy vấn:
+Trong thao tác `smallest(x)`, tổng số phần tử trong mảng luôn lớn hơn hoặc bằng `x`.
+
+Trong thao tác `gcd(L, R)`, sẽ có ít nhất hai số nguyên nằm trong khoảng từ `L` đến `R`.
+
+Nhiệm vụ của bạn là giúp Sherlock trả lời các truy vấn này.
+
+---
+
+## Đầu vào
+
+Dòng đầu tiên chứa một số nguyên `Q`, biểu thị số lượng truy vấn.
+
+Các dòng tiếp theo chứa các truy vấn. Mỗi truy vấn có thể chứa hai hoặc ba số nguyên, được phân cách bởi một dấu cách.
+
+Định dạng truy vấn có thể là:
 
 ```text
-Q
+K x
 ```
 
-Mỗi dòng trong `Q` dòng tiếp theo chứa một truy vấn có một trong các dạng:
+hoặc:
 
 ```text
-1 x
-2 x
-3 x
-4 L R
+K L R
 ```
 
 ---
 
-## Định dạng đầu ra
+## Đầu ra
 
-Với mỗi truy vấn yêu cầu trả về kết quả, in kết quả trên một dòng riêng.
+In ra đáp án của các truy vấn có:
+
+```text
+K = 3
+```
+
+hoặc:
+
+```text
+K = 4
+```
+
+Mỗi đáp án được in trên một dòng mới.
 
 ---
 
-## Ví dụ
+## Ràng buộc
 
-### Đầu vào mẫu
+```text
+1 <= Q <= 10^6
+1 <= x <= 10^6
+1 <= K <= 4
+1 <= L, R <= 10^6
+L < R
+```
+
+---
+
+## Đầu vào mẫu
 
 ```text
 10
@@ -136,218 +120,4 @@ Với mỗi truy vấn yêu cầu trả về kết quả, in kết quả trên m
 2 5
 4 6 10
 4 1 100
-```
-
-### Đầu ra mẫu
-
-```text
-2
-8
-2
-2
-```
-
----
-
-## Giải thích
-
-Trạng thái ban đầu:
-
-```text
-arr = []
-```
-
-### Truy vấn 1
-
-```text
-1 2
-```
-
-Thêm `2`.
-
-```text
-arr = [2]
-```
-
----
-
-### Truy vấn 2
-
-```text
-1 4
-```
-
-Thêm `4`.
-
-```text
-arr = [2, 4]
-```
-
----
-
-### Truy vấn 3
-
-```text
-1 5
-```
-
-Thêm `5`.
-
-```text
-arr = [2, 4, 5]
-```
-
----
-
-### Truy vấn 4
-
-```text
-1 6
-```
-
-Thêm `6`.
-
-```text
-arr = [2, 4, 5, 6]
-```
-
----
-
-### Truy vấn 5
-
-```text
-1 8
-```
-
-Thêm `8`.
-
-```text
-arr = [2, 4, 5, 6, 8]
-```
-
----
-
-### Truy vấn 6
-
-```text
-3 1
-```
-
-Tìm phần tử nhỏ thứ `1`.
-
-```text
-arr = [2, 4, 5, 6, 8]
-```
-
-Phần tử nhỏ nhất là:
-
-```text
-2
-```
-
-Kết quả:
-
-```text
-2
-```
-
----
-
-### Truy vấn 7
-
-```text
-3 5
-```
-
-Tìm phần tử nhỏ thứ `5`.
-
-```text
-arr = [2, 4, 5, 6, 8]
-```
-
-Phần tử nhỏ thứ `5` là:
-
-```text
-8
-```
-
-Kết quả:
-
-```text
-8
-```
-
----
-
-### Truy vấn 8
-
-```text
-2 5
-```
-
-Xóa phần tử `5`.
-
-```text
-arr = [2, 4, 6, 8]
-```
-
----
-
-### Truy vấn 9
-
-```text
-4 6 10
-```
-
-Các phần tử nằm trong đoạn `[6, 10]` là:
-
-```text
-6 8
-```
-
-Tính:
-
-```text
-GCD(6, 8) = 2
-```
-
-Kết quả:
-
-```text
-2
-```
-
----
-
-### Truy vấn 10
-
-```text
-4 1 100
-```
-
-Các phần tử nằm trong đoạn `[1, 100]` là:
-
-```text
-2 4 6 8
-```
-
-Tính:
-
-```text
-GCD(2, 4, 6, 8) = 2
-```
-
-Kết quả:
-
-```text
-2
-```
-
-Do đó đầu ra cuối cùng là:
-
-```text
-2
-8
-2
-2
 ```
